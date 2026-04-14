@@ -116,7 +116,7 @@ public class NewEventView extends JPanel implements View
 	{
 		JLabel lbl_forwardEmail = new JLabel("Correo de reenvío");
 		lbl_forwardEmail.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbl_forwardEmail.setBounds(29, 71, 104, 14);
+		lbl_forwardEmail.setBounds(29, 71, 130, 14);
 		add(lbl_forwardEmail);
 
 		tf_forwardEmail = new JTextField();
@@ -165,7 +165,7 @@ public class NewEventView extends JPanel implements View
 
 		rbtn_weekly = new JRadioButton("Semanal");
 		btng_periodicity.add(rbtn_weekly);
-		rbtn_weekly.setBounds(253, 160, 67, 23);
+		rbtn_weekly.setBounds(253, 160, 85, 23);
 		add(rbtn_weekly);
 
 		rbtn_monthly = new JRadioButton("Mensual");
