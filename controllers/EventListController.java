@@ -41,6 +41,18 @@ public class EventListController extends Controller
 		((DefaultTableModel) table.getModel()).addRow(values);
 	}
 	
+	public void refreshTable() 
+	{
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		Vector<Vector<Object>> data = getDataColumns();
+		if (data != null) {
+			for (Vector<Object> row : data) {
+				model.addRow(row);
+			}
+		}
+	}
+	
 	
 	//-----------------------------------------------------------------------
 	//		Getters

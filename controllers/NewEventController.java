@@ -1,6 +1,7 @@
 package controllers;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import core.Controller;
 import models.SchedulerEvent;
@@ -9,48 +10,27 @@ import views.EventListView;
 import views.NewEventView;
 
 
-/**
- * Responsible for {@link NewEventView} behavior.
- */
-public class NewEventController extends Controller 
+public class NewEventController extends Controller
 {
-	//-----------------------------------------------------------------------
-	//		Attributes
-	//-----------------------------------------------------------------------
 	private NewEventView newEventView;
 	private EventListController eventListController;
+	private RemoveEventController removeEventController;
 
-	
-	//-----------------------------------------------------------------------
-	//		Constructor
-	//-----------------------------------------------------------------------
-	/**
-	 * Responsible for create a {@link SchedulerEvent new event}. 
-	 * 
-	 * @param eventListController {@link EventListController}, because it will 
-	 * add new events created in {@link NewEventView}.
-	 */
-	public NewEventController(EventListController eventListController) 
+
+	public NewEventController(EventListController eventListController, RemoveEventController removeEventController)
 	{
 		this.eventListController = eventListController;
-		
+		this.removeEventController = removeEventController;
+
 	}
-	
-	
-	//-----------------------------------------------------------------------
-	//		Methods
-	//-----------------------------------------------------------------------
+
+
 	@Override
-	public void run() 
+	public void run()
 	{
 		newEventView = new NewEventView(this);
 	}
-	
-	/**
-	 * Creates a new {@link SchedulerEvent} and puts it on {@link EventListView}.
-	 * 
-	 * @param event Event to be added
-	 */
+
 	public void addEvent(SchedulerEvent event)
 	{
 		Object[] metadata = new Object[5];
@@ -67,20 +47,16 @@ public class NewEventController extends Controller
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "ERROR", e.getMessage(), JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
+
+
 		eventListController.addNewRow(metadata);
+
+		if (removeEventController.getView() != null) {
+			removeEventController.refreshTable();
+		}
 	}
-	
-	
-	//-----------------------------------------------------------------------
-	//		Getters
-	//-----------------------------------------------------------------------
-	/**
-	 * Gets the {@link NewEventView view associated with this controller}.
-	 * 
-	 * @return View associated with this controller
-	 */
+
+
 	public NewEventView getView()
 	{
 		return newEventView;

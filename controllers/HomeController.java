@@ -4,50 +4,44 @@ import core.Controller;
 import views.EventListView;
 import views.HomeView;
 import views.NewEventView;
+import views.RemoveEventView;
 
 
-/**
- * Main controller. It will be responsible for program's main screen behavior.
- */
-public class HomeController extends Controller 
+public class HomeController extends Controller
 {
-	//-----------------------------------------------------------------------
-	//		Attributes
-	//-----------------------------------------------------------------------
 	private HomeView homeView;
 	private EventListController eventListController = new EventListController();
-	private NewEventController newEventController = new NewEventController(eventListController);
-	
-	
-	//-----------------------------------------------------------------------
-	//		Methods
-	//-----------------------------------------------------------------------
+	private RemoveEventController removeEventController = new RemoveEventController();
+	private NewEventController newEventController = new NewEventController(eventListController, removeEventController);
+
+
 	@Override
 	public void run()
 	{
-		// Initializes others controllers
 		eventListController.run();
 		newEventController.run();
-		
-		// Initializes HomeView
+		removeEventController.run();
+		removeEventController.setEventListController(eventListController);
+
 		homeView = new HomeView(this, mainFrame);
 		addView("HomeView", homeView);
-		
-		// Displays the program window
+
 		mainFrame.setVisible(true);
 	}
-	
-	
-	//-----------------------------------------------------------------------
-	//		Getters
-	//-----------------------------------------------------------------------
+
+
 	public EventListView getEventListView()
 	{
 		return eventListController.getView();
 	}
-	
+
 	public NewEventView getNewEventView()
 	{
 		return newEventController.getView();
+	}
+
+	public RemoveEventView getRemoveEventView()
+	{
+		return removeEventController.getView();
 	}
 }

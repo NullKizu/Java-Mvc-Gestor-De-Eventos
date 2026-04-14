@@ -80,6 +80,7 @@ public class HomeView extends JPanel implements View
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Nuevo evento", homeController.getNewEventView());
 		tabbedPane.addTab("Eventos", homeController.getEventListView());
+		tabbedPane.addTab("Eliminar evento", homeController.getRemoveEventView());
 		add(tabbedPane, BorderLayout.CENTER);
 	}
 }
