@@ -60,16 +60,16 @@ public class EventListController extends Controller
 	 * 
 	 * @return Table metadata in a list
 	 */
-	public Vector<String> getNameColumns() 
+	public Vector<String> getNameColumns()
 	{
 		Vector<String> nameColumns = new Vector<String>();
-		
-		nameColumns.add("Date");
-		nameColumns.add("Description");
-		nameColumns.add("Frequency");
-		nameColumns.add("E-mail");
-		nameColumns.add("Alarm");
-		
+
+		nameColumns.add("Fecha");
+		nameColumns.add("Descripción");
+		nameColumns.add("Frecuencia");
+		nameColumns.add("Correo electrónico");
+		nameColumns.add("Alarma");
+
 		return nameColumns;
 	}
 	
