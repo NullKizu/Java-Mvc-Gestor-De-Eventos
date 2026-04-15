@@ -6,6 +6,7 @@ import views.HomeView;
 import views.NewEventView;
 import views.RegisterGuestView;
 import views.RemoveEventView;
+import views.SearchEventView;
 
 
 public class HomeController extends Controller
@@ -15,6 +16,7 @@ public class HomeController extends Controller
 	private RemoveEventController removeEventController = new RemoveEventController();
 	private NewEventController newEventController = new NewEventController(eventListController, removeEventController);
 	private GuestController guestController = new GuestController();
+	private SearchEventController searchEventController = new SearchEventController();
 
 
 	@Override
@@ -24,6 +26,7 @@ public class HomeController extends Controller
 		newEventController.run();
 		removeEventController.run();
 		guestController.run();
+		searchEventController.run();
 		removeEventController.setEventListController(eventListController);
 
 		homeView = new HomeView(this, mainFrame);
@@ -51,5 +54,10 @@ public class HomeController extends Controller
 	public RegisterGuestView getRegisterGuestView()
 	{
 		return guestController.getView();
+	}
+
+	public SearchEventView getSearchEventView()
+	{
+		return searchEventController.getView();
 	}
 }
