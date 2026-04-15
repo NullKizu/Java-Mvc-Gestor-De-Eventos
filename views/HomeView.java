@@ -81,6 +81,7 @@ public class HomeView extends JPanel implements View
 		tabbedPane.addTab("Nuevo evento", homeController.getNewEventView());
 		tabbedPane.addTab("Eventos", homeController.getEventListView());
 		tabbedPane.addTab("Eliminar evento", homeController.getRemoveEventView());
+		tabbedPane.addTab("Registrar invitado", homeController.getRegisterGuestView());
 		add(tabbedPane, BorderLayout.CENTER);
 	}
 }

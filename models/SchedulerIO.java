@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -24,6 +26,7 @@ public class SchedulerIO implements Model
 	//-----------------------------------------------------------------------
 	private static final String DIRECTORY = ".";
 	private static final String FILE = "events.txt";
+	private static final String FILE_GUESTS = "guests.txt";
 	private List<View> views = new ArrayList<>();
 	private String notice;
 
@@ -106,6 +109,58 @@ public class SchedulerIO implements Model
 			notifyViews();
 		} catch (Exception ex) {
 			notice = "There was a problem reading the event file";
+			notifyViews();
+		}
+		
+		return response;
+	}
+	
+	public void saveGuest(Guest guest) throws Exception 
+	{
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(DIRECTORY, FILE_GUESTS), true));
+			writer.write(guest.toString(), 0, guest.toString().length());
+			writer.newLine();
+			writer.close();
+		} catch (FileNotFoundException fnfe) {
+			notice = "File not found"; 
+			notifyViews();
+		} catch (Exception ex) {
+			notice = "Error while writing the file";
+			notifyViews();
+		}
+	}
+
+	public Vector<Vector<Object>> getGuests() throws Exception 
+	{
+		Vector<Vector<Object>> response = new Vector<Vector<Object>>();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(new File(DIRECTORY, FILE_GUESTS)));
+			String line = reader.readLine();
+			
+			while (line != null) {
+				Vector<Object> guestInfo = new Vector<Object>();
+				String[] tokens = line.split(";");
+
+				guestInfo.add(tokens[0]);
+				guestInfo.add(tokens[1]);
+				guestInfo.add(tokens[2]);
+				guestInfo.add(tokens[3]);
+				guestInfo.add(tokens[4]);
+				guestInfo.add(tokens[5].equals("1") ? "Sí" : "No");
+
+				response.add(guestInfo);
+				line = reader.readLine();
+			}
+
+			reader.close();
+		} catch (FileNotFoundException fnfe) {
+			notice = "File not found";
+			notifyViews();
+		} catch (Exception ex) {
+			notice = "There was a problem reading the guest file";
 			notifyViews();
 		}
 		
